@@ -129,6 +129,47 @@ namespace Program
                 }
             }
         }
+        
+        public float this[int index]
+        {
+            get
+            {
+                Node current = head;
+                int currIndex = 0;
+
+                while (current != null)
+                {
+                    if (currIndex == index)
+                    {
+                        return current.Data;
+                    }
+
+                    current = current.Next;
+                    currIndex++;
+                }
+
+                throw new IndexOutOfRangeException("Index out of range");
+            }
+            set
+            {
+                Node current = head;
+                int currIndex = 0;
+
+                while (current != null)
+                {
+                    if (currIndex == index)
+                    {
+                        current.Data = value;
+                        return;
+                    }
+
+                    current.Data = value;
+                    currIndex++;
+                }
+
+                throw new IndexOutOfRangeException("Index out of range");
+            }
+        }
     }
 
     class Program
@@ -146,14 +187,17 @@ namespace Program
             
             Console.Write("List:\0");
             sll.Display();
-            Console.WriteLine("\nFirst element in List bigger than 10.5: {0:F2}", sll.FindFirstBiggerElement(10.5f));
+            Console.WriteLine("\nFirst element in List bigger than 10.5: {0:F2}", sll.FindFirstBiggerElement(12f));
             Console.WriteLine("Sum of elements less than element higher: {0:F2}", sll.SumOfElementsLess());
             SinglyLinkedList sll2 = sll.NewListOfElementsBigger(10.5f);
             Console.Write("New List:\0");
             sll2.Display();
-            sll.RemoveLessThan(2.6);
+            sll.RemoveLessThan(8);
             Console.Write("\nRemoved List:\0");
             sll.Display();
+
+            float sum = sll[0] + sll[3];
+            Console.Write("\n" + sum);
         }
     }
 }
